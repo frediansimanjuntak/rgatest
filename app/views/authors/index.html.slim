@@ -1,0 +1,37 @@
+.row
+  .col-md-12
+    - if user_signed_in?
+      .float-end.mt-4
+        = link_to 'New Author', new_author_path, class: 'btn btn-primary'
+    h1.mt-4 Listing Authors 
+
+    .table-responsive.mt-4
+      table.table
+        thead
+          tr
+              th ID
+              th Name
+              th Gender
+              th N books
+              th style="width:150px;" Born
+              th style="width:150px;" Died
+              th
+              - if user_signed_in?
+                th
+                th
+
+        tbody
+          - @authors.each do |author|
+            tr
+                td = author.id
+                td = author.name
+                td = author.gender == "m" ? "Male" : "Female"
+                td = author.books.count
+                td = author.born&.strftime("%d %b %Y")
+                td = author.died&.strftime("%d %b %Y")
+                td = link_to 'Show', author
+                - if user_signed_in?
+                  td = link_to 'Edit', edit_author_path(author)
+                  td = link_to 'Destroy', author, data: { confirm: 'Are you sure?' }, method: :delete
+
+    = paginate @authors

@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+    h1.mt-4 New author
+
+    == render "form", author: @author
+
+br
+
+div
+  = link_to "Back to authors", authors_path

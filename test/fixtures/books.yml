@@ -1,0 +1,61 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content_name: MyString
+  isbn: MyString
+  original_title: MyString
+  year: 1
+  language_code: MyString
+  category: MyString
+  images: MyText
+  category: MyString
+  plot: MyText
+  copyright: MyString
+  title: MyText
+  wikipedia: 
+  average_rating: 9.99
+  rating_count: 1
+  goodreads: 
+  similar_books: MyText
+  description: MyText
+  loc_class: MyText
+  gutenberg: 
+  pages: 1
+  language: MyString
+  isbn13: MyString
+  release_date: 2022-10-25 09:54:14
+  cover: MyText
+  summary: MyText
+  content_cleaned: false
+  classes: MyText
+  content_available: false
+
+two:
+  content_name: MyString
+  isbn: MyString
+  original_title: MyString
+  year: 1
+  language_code: MyString
+  category: MyString
+  images: MyText
+  category: MyString
+  plot: MyText
+  copyright: MyString
+  title: MyText
+  wikipedia: 
+  average_rating: 9.99
+  rating_count: 1
+  goodreads: 
+  similar_books: MyText
+  description: MyText
+  loc_class: MyText
+  gutenberg: 
+  pages: 1
+  language: MyString
+  isbn13: MyString
+  release_date: 2022-10-25 09:54:14
+  cover: MyText
+  summary: MyText
+  content_cleaned: false
+  classes: MyText
+  content_available: false

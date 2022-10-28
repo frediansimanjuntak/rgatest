@@ -1,0 +1,59 @@
+.row
+  .col-md-12
+    - if user_signed_in?
+      .float-end.mt-4
+        = link_to 'New Book', new_book_path, class: 'btn btn-primary'
+    h1.mt-4 Listing Books 
+.row 
+  .col-md-12
+    .card.p-3
+      = form_tag books_path, method: "get" do      
+        .form-group.mb-2
+          = label_tag 'authors', 'Find By Authors'
+          div data-controller="select2"
+            = select_tag "authors", options_for_select(Author.all.collect{|x| [x.name,x.id]}), {multiple: true, :size => 10, class: 'form-control year-book'}
+        .form-group.mb-2
+          = label_tag 'years', 'Find By Years'
+          div data-controller="select2"
+            = select_tag "years", options_for_select((Date.today.year-300)..(Date.today.year+1)), {multiple: true, class: 'form-control year-book'}
+        .form-group.mb-2
+          .row 
+            .col-md-6
+              = label_tag 'pages', 'Minimal Page'
+              = number_field_tag 'pages_min', nil, min: 1, class: 'form-control'
+            .col-md-6
+              = label_tag 'pages', 'Maximal Page'
+              = number_field_tag 'pages_max', nil, min: 1, class: 'form-control'
+        = submit_tag "Search"
+.row 
+  .col-md-12
+    .table-responsive.mt-4
+      table.table
+        thead
+          tr
+              th ID
+              th Title
+              th Category
+              th N Author
+              th Year
+              th Total Pages
+              th
+              - if user_signed_in?
+                th
+                th
+
+        tbody
+          - @books.each do |book|
+            tr
+                td = book.id
+                td = book.title
+                td = book.category
+                td = book.authors.count()
+                td = book.year
+                td = book.pages
+                td = link_to 'Show', book
+                - if user_signed_in?
+                  td = link_to 'Edit', edit_book_path(book)
+                  td = link_to 'Destroy', book, data: { confirm: 'Are you sure?' }, method: :delete
+
+    = paginate @books

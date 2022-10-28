@@ -1,0 +1,106 @@
+section style=("background-color: #eee;") 
+  .container.py-5
+    .row
+      .col-lg-4
+        .card.mb-4
+          .card-body.text-center
+            img.img-fluid alt="#{@book.title}" src="#{@book.cover.present? ? @book.cover : 'https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png'}" style=("width: 150px;")
+            h5.my-3 #{@book.title}
+            p.text-muted.mb-1 #{@book.year}
+            p.text-muted.mb-4
+              = link_to 'Edit', edit_book_path(@book)
+        .card.mb-4.mb-lg-0
+          .card-body.p-0
+            ul.list-group.list-group-flush.rounded-3
+              li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                i.fas.fa-globe.fa-lg.text-warning
+                p.mb-0 Author
+              - @book.authors.each do |author|
+                li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                  i.fab.fa-github.fa-lg style=("color: #333333;") 
+                  p.mb-0
+                    = link_to author.name, author
+              
+              - if @book.authors.count() == 0
+                li.list-group-item.d-flex.justify-content-between.align-items-center.p-3
+                  i.fab.fa-github.fa-lg style=("color: #333333;") 
+                  p.mb-0
+                    - if user_signed_in?
+                      = link_to 'Add Author', new_author_path(book: @book.id), class: 'btn btn-primary'
+                    - else 
+                      | No Record Data of Book
+      .col-lg-8
+        .card.mb-4
+          .card-body
+            .row
+              .col-sm-3
+                p.mb-0 Title
+              .col-sm-9
+                p.text-muted.mb-0 #{@book.title}
+            - if @book.original_title.present?
+              hr
+              .row
+                .col-sm-3
+                  p.mb-0 Original Title
+                .col-sm-9
+                  p.text-muted.mb-0 #{@book.original_title}
+            - if @book.wikipedia.present?
+              hr
+              .row
+                .col-sm-3
+                  p.mb-0 Wikipedia
+                .col-sm-9
+                  p.text-muted.mb-0 
+                    a href='#{@book.wikipedia['url']}' target='_blank' #{@book.title}
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Category
+              .col-sm-9
+                p.text-muted.mb-0 #{@book.category}
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Copy Right
+              .col-sm-9
+                p.text-muted.mb-0 #{@book.copyright}
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Total Page
+              .col-sm-9
+                p.text-muted.mb-0 #{@book.pages}
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Average Rating
+              .col-sm-9
+                p.text-muted.mb-0 #{@book.average_rating}
+        - if @book.description.present?
+          .row
+            .col-md-12
+              .card.mb-4.mb-md-4
+                .card-body.text-justify
+                  p.mb-4
+                    span.text-primary.font-italic.me-1 Book
+                    | Description
+                  p.mb-1.text-justify style=("font-size: .87rem;")  
+                    == @book.description
+        - if @book.plot.present?
+          .row
+            .col-md-12
+              .card.mb-4.mb-md-4
+                .card-body.text-justify
+                  p.mb-4
+                    span.text-primary.font-italic.me-1 Book
+                    | Plot
+                  p.mb-1.text-justify style=("font-size: .87rem;")  #{@book.plot}
+        - if @book.summary.present?
+          .row
+            .col-md-12
+              .card.mb-4.mb-md-0
+                .card-body
+                  p.mb-4
+                    span.text-primary.font-italic.me-1 Book
+                    | Summary
+                  p.mb-1 style=("font-size: .87rem;")  #{@book.summary}

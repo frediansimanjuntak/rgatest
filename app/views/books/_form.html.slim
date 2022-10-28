@@ -1,0 +1,231 @@
+= form_with(model: @book) do |form|
+  - if @book.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@book.errors.count, "error")} prohibited this book from being saved:"
+      ul
+        - @book.errors.each do |error|
+          li = error.full_message
+  
+  - if @author.present?
+    .form-group.mb-2
+      = form.hidden_field :author_id, value: @author.id
+      = form.label :main_author_name, style: "display: block"
+      = form.text_field :author_name, value: @author.name, class: "form-control #{'is-invalid' if @book.errors.include?(:author)}", disabled: true
+      - if @book.errors.include?(:author)
+        .invalid-feedback.d-block
+          - @book.errors.full_messages_for(:author).each do |error_message|
+            = error_message
+
+  .form-group.mb-2
+    = form.label :other_authors, style: "display: block"
+    div data-controller="select2"
+      = form.select :author_ids, Author.all.collect {|x| [x.name, x.id]}, {required: true, include_hidden: false}, class: 'form-control authors-book', multiple: true
+      / = form.select :authors, Author.all.map { |user| user.name }, {include_blank: false, required: true, include_hidden: false, multiple: true}, class: 'form-control authors-book'
+
+  .form-group.mb-2
+    .row 
+      .col-md-6
+        = form.label :title, style: "display: block"
+        = form.text_field :title, class: "form-control #{'is-invalid' if @book.errors.include?(:title)}"
+        - if @book.errors.include?(:title)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:title).each do |error_message|
+              = error_message 
+      .col-md-6
+        = form.label :original_title, style: "display: block"
+        = form.text_field :original_title, class: "form-control #{'is-invalid' if @book.errors.include?(:original_title)}"
+        - if @book.errors.include?(:original_title)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:original_title).each do |error_message|
+              = error_message 
+
+  .form-group.mb-2
+    .row 
+      .col-md-6
+        = form.label :cover, style: "display: block"
+        = form.text_field :cover, class: "form-control #{'is-invalid' if @book.errors.include?(:cover)}"
+        - if @book.errors.include?(:cover)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:cover).each do |error_message|
+              = error_message       
+      .col-md-6
+        = form.label :cover_art_url, style: "display: block"
+        = form.text_field :cover_art, class: "form-control #{'is-invalid' if @book.errors.include?(:cover_art)}"
+        - if @book.errors.include?(:cover_art)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:cover_art).each do |error_message|
+              = error_message
+
+  .form-group.mb-2
+    .row 
+      .col-md-4
+        = form.label :isbn, style: "display: block"
+        = form.text_field :isbn, class: "form-control #{'is-invalid' if @book.errors.include?(:isbn)}"
+        - if @book.errors.include?(:isbn)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:isbn).each do |error_message|
+              = error_message       
+      .col-md-4
+        = form.label :isbn13, style: "display: block"
+        = form.text_field :isbn13, class: "form-control #{'is-invalid' if @book.errors.include?(:isbn13)}"
+        - if @book.errors.include?(:isbn13)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:isbn13).each do |error_message|
+              = error_message     
+      .col-md-4
+        = form.label :copyright, style: "display: block"
+        = form.text_field :copyright, class: "form-control #{'is-invalid' if @book.errors.include?(:copyright)}"
+        - if @book.errors.include?(:copyright)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:copyright).each do |error_message|
+              = error_message 
+
+  .form-group.mb-2
+    .row 
+      .col-md-4
+        = form.label :pages, style: "display: block"
+        = form.text_field :pages, class: "form-control #{'is-invalid' if @book.errors.include?(:pages)}"
+        - if @book.errors.include?(:pages)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:pages).each do |error_message|
+              = error_message       
+      .col-md-4
+        = form.label :release_date, style: "display: block"
+        = form.text_field :release_date, class: "form-control #{'is-invalid' if @book.errors.include?(:release_date)}"
+        - if @book.errors.include?(:release_date)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:release_date).each do |error_message|
+              = error_message     
+      .col-md-4
+        = form.label :year, style: "display: block"
+        = form.select :year, (Date.today.year-300)..(Date.today.year+1), {}, {class: "form-control #{'is-invalid' if @book.errors.include?(:year)}"}
+        - if @book.errors.include?(:year)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:year).each do |error_message|
+              = error_message
+
+  .form-group.mb-2
+    .row 
+      .col-md-4
+        = form.label :category, style: "display: block"
+        = form.text_field :category, class: "form-control #{'is-invalid' if @book.errors.include?(:category)}"
+        - if @book.errors.include?(:category)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:category).each do |error_message|
+              = error_message 
+      .col-md-4
+        = form.label :language_code, style: "display: block"
+        = form.text_field :language_code, class: "form-control #{'is-invalid' if @book.errors.include?(:language_code)}"
+        - if @book.errors.include?(:language_code)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:language_code).each do |error_message|
+              = error_message       
+      .col-md-4
+        = form.label :language, style: "display: block"
+        = form.text_field :language, class: "form-control #{'is-invalid' if @book.errors.include?(:language)}"
+        - if @book.errors.include?(:language)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:language).each do |error_message|
+              = error_message 
+  
+  .form-group.mb-2
+    = form.label :plot, style: "display: block"
+    = form.text_area :plot, cols: 30, rows: 10, class: "form-control #{'is-invalid' if @book.errors.include?(:plot)}"
+    - if @book.errors.include?(:plot)
+      .invalid-feedback.d-block
+        - @book.errors.full_messages_for(:plot).each do |error_message|
+          = error_message
+
+  .form-group.mb-2
+    = form.label :description, style: "display: block"
+    = form.text_area :description, cols: 30, rows: 10, class: "form-control #{'is-invalid' if @book.errors.include?(:description)}"
+    - if @book.errors.include?(:description)
+      .invalid-feedback.d-block
+        - @book.errors.full_messages_for(:description).each do |error_message|
+          = error_message
+  
+  .form-group.mb-2
+    = form.label :summary, style: "display: block"
+    = form.text_area :summary, cols: 30, rows: 10, class: "form-control #{'is-invalid' if @book.errors.include?(:summary)}"
+    - if @book.errors.include?(:summary)
+      .invalid-feedback.d-block
+        - @book.errors.full_messages_for(:summary).each do |error_message|
+          = error_message
+  
+  .form-group.mb-2
+    = form.fields_for :wikipedia, OpenStruct.new(@book.wikipedia) do |ff|
+      .row 
+        .col-md-4
+          = ff.label :wikipedia_url, style: "display: block"
+          = ff.text_field :url, class: "form-control" 
+        .col-md-4
+          = ff.label :wikipedia_found, style: "display: block"
+          = ff.check_box :found, class: 'form-check-input'
+        .col-md-4
+          = ff.label :wikipedia_year, style: "display: block"
+          = ff.select :year, (Date.today.year-300)..(Date.today.year+1), {}, {class: "form-control"}  
+  .form-group.mb-2
+    = form.fields_for :goodreads, OpenStruct.new(@book.goodreads) do |ff|
+      .row 
+        .col-md-4
+          = ff.label :goodreads_url, style: "display: block"
+          = ff.text_field :url, class: "form-control" 
+        .col-md-4
+          = ff.label :goodreads_found, style: "display: block"
+          = ff.check_box :found, class: 'form-check-input'
+        .col-md-4
+          = ff.label :goodreads_year, style: "display: block"
+          = ff.select :year, (Date.today.year-300)..(Date.today.year+1), {}, {class: "form-control"}
+  .form-group.mb-2
+    = form.fields_for :gutenberg, OpenStruct.new(@book.gutenberg) do |ff|
+      .row 
+        .col-md-6
+          = ff.label :gutenberg_url, style: "display: block"
+          = ff.text_field :url, class: "form-control" 
+        .col-md-6
+          = ff.label :gutenberg_num, style: "display: block"
+          = ff.text_field :num, class: "form-control" 
+  .form-group.mb-2
+    .row 
+      .col-md-6
+        = form.label :average_rating, style: "display: block"
+        = form.text_field :average_rating, class: "form-control #{'is-invalid' if @book.errors.include?(:average_rating)}"
+        - if @book.errors.include?(:average_rating)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:average_rating).each do |error_message|
+              = error_message       
+      .col-md-6
+        = form.label :rating_count, style: "display: block"
+        = form.text_field :rating_count, class: "form-control #{'is-invalid' if @book.errors.include?(:rating_count)}"
+        - if @book.errors.include?(:rating_count)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:rating_count).each do |error_message|
+              = error_message 
+  
+  .form-group.mb-2
+    .row 
+      .col-md-6
+        = form.label :content_cleaned, style: "display: block"
+        = form.check_box :content_cleaned
+        / = form.text_field :average_rating, class: "form-control #{'is-invalid' if @book.errors.include?(:average_rating)}"
+        - if @book.errors.include?(:content_cleaned)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:content_cleaned).each do |error_message|
+              = error_message       
+      .col-md-6
+        = form.label :content_available, style: "display: block"
+        = form.check_box :content_available
+        / = form.text_field :rating_count, class: "form-control #{'is-invalid' if @book.errors.include?(:rating_count)}"
+        - if @book.errors.include?(:content_available)
+          .invalid-feedback.d-block
+            - @book.errors.full_messages_for(:content_available).each do |error_message|
+              = error_message
+  .form-group.mb-2
+    = form.label :classes, style: "display: block"
+    = form.text_field :classes, class: "form-control #{'is-invalid' if @book.errors.include?(:classes)}", value: @book.classes.join(", ")
+    - if @book.errors.include?(:classes)
+      .invalid-feedback.d-block
+        - @book.errors.full_messages_for(:classes).each do |error_message|
+          = error_message
+  div
+    = form.submit

@@ -1,0 +1,69 @@
+section.h-100.gradient-custom-2
+  .container.py-5.h-100
+    .row.d-flex.justify-content-center.align-items-center.h-100
+      .col.col-lg-12.col-xl-9
+        .card
+          .rounded-top.text-white.d-flex.flex-row style=("background-color: #000; height:200px;") 
+            .ms-4.mt-5.d-flex.flex-column style=("width: 150px;") 
+              img.img-fluid.img-thumbnail.mt-4.mb-2 alt=("Generic placeholder image") src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" style=("width: 150px; z-index: 1") /
+              / button.btn.btn-outline-dark data-mdb-ripple-color="dark" style=("z-index: 1;") type="button" 
+                | Edit profile
+            .ms-3 style=("margin-top: 130px;") 
+              h5 #{@author.name}
+              p Author
+          .p-4.text-black style=("background-color: #f8f9fa;") 
+            .d-flex.justify-content-end.text-center.py-1
+              div
+                p.mb-1.h5 #{@author.books.count()}
+                p.small.text-muted.mb-0 Books
+          .card-body.p-4.text-black
+            .mb-5
+              p.lead.fw-normal.mb-1 About
+              .p-4 style=("background-color: #f8f9fa;")
+                .row.mb-1
+                  .col-sm-3
+                    p.mb-0 Gender
+                  .col-sm-9
+                    p.text-muted.mb-0 #{@author.gender == 'm' ? 'Male' : 'Female'}
+                - if @author.wikipedia.present?
+                  .row.mb-1
+                    .col-sm-3
+                      p.mb-0 Wikipedia
+                    .col-sm-9
+                      p.text-muted.mb-0 
+                        a href='#{@author.wikipedia['url']}' target='_blank' #{@author.name}
+                .row.mb-1
+                  .col-sm-3
+                    p.mb-0 Born
+                  .col-sm-9
+                    p.text-muted.mb-0 #{@author.born.present? ? @author.born&.strftime("%d %b %Y") : '-'}
+                .row.mb-1
+                  .col-sm-3
+                    p.mb-0 Died
+                  .col-sm-9
+                    p.text-muted.mb-0 #{@author.died.present? ? @author.died&.strftime("%d %b %Y") : '-'}
+            - if @author.bio.present?
+              .mb-5
+                p.lead.fw-normal.mb-1 Author Biography
+                .p-4 style=("background-color: #f8f9fa;") #{@author.bio}
+            .mb-5
+              p.lead.fw-normal.mb-1 Author Summary
+              .p-4 style=("background-color: #f8f9fa;") #{@author.summary}
+            .d-flex.justify-content-between.align-items-center.mb-4
+              p.lead.fw-normal.mb-0 All Books
+              - if user_signed_in?
+                .float-end.mt-4
+                  = link_to 'New Book', new_book_path(author: @author.id), class: 'btn btn-primary'
+            .row.g-2
+              - if @author.books.count() == 0
+                .col-md-12
+                  p No Record Data of Book
+              - @author.books.each do |book|
+                .col-md-4.mb-2
+                  .row
+                    .col-md-12
+                      img.w-100.rounded-3 alt=("#{book.title}") src="#{book.cover.present? ? book.cover : 'https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png'}" style=("height: 350px;")
+                  .row
+                    .col-md-12
+                      p
+                        = link_to book.title, book
