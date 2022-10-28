@@ -26,6 +26,7 @@ Load the sample data
     rake db:seed
 
 Reset sequence ID from table `authors` and `books`
+
     rails c
     ActiveRecord::Base.connection.reset_pk_sequence!('authors')
     ActiveRecord::Base.connection.reset_pk_sequence!('books')
