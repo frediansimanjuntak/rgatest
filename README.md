@@ -1,24 +1,32 @@
-# README
+# RGA - TEST
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RGA TEST CODE using Ruby On Rails
 
-Things you may want to cover:
+## System Dependencies
 
-* Ruby version
+The following are needed by this project:
 
-* System dependencies
+* [PostgreSQL](http://www.postgresql.org/)
+* [Ruby On Rails](https://guides.rubyonrails.org/v6.0/getting_started.html)
 
-* Configuration
+## Getting Started
 
-* Database creation
+Clone this repository and bundle.
 
-* Database initialization
+    git clone https://github.com/frediansimanjuntak/rgatest.git
+    cd rgatest
+    bundle install
 
-* How to run the test suite
+Create and initialize the database using this command:
 
-* Services (job queues, cache servers, search engines, etc.)
+    rake db:setup
 
-* Deployment instructions
+Load the sample data
 
-* ...
+    rake db:seed
+
+Start the application server.
+
+    rails server
+
+Access the application at [http://localhost:3000/](http://localhost:3000/) and login using the email and password that was entered earlier on.
