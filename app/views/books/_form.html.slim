@@ -228,4 +228,4 @@
         - @book.errors.full_messages_for(:classes).each do |error_message|
           = error_message
   div
-    = form.submit
+    = form.submit :submit, class: "btn btn-primary"

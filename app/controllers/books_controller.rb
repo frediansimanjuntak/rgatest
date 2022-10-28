@@ -82,14 +82,6 @@ class BooksController < ApplicationController
       books = books.where('pages >= ?', params[:pages_min]) if params[:pages_min].present?
       books = books.where('pages <= ?', params[:pages_max]) if params[:pages_max].present?
 
-      # if params[:book]
-      #   given_book = Book.find_by(int_id: params[:book].first.to_i)
-
-      #   return books unless given_book
-      #   books = books.where('classes @> ?', given_book.classes.last.to_json)
-      #   books = books.or(Book.where('authors @> ?', [given_book.author].to_json))
-      # end
-
       books
     end
     

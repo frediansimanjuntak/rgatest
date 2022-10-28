@@ -73,6 +73,6 @@
           = ff.label :wikipedia_year, style: "display: block"
           = ff.select :year, (Date.today.year-300)..(Date.today.year+1), {}, {class: "form-control"}
   .form-group 
-    = form.submit
+    = form.submit :submit, class: "btn btn-primary"
 
 

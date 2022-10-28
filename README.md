@@ -7,7 +7,7 @@ RGA TEST CODE using Ruby On Rails
 The following are needed by this project:
 
 * [PostgreSQL](http://www.postgresql.org/)
-* [Ruby On Rails](https://guides.rubyonrails.org/v6.0/getting_started.html)
+* [Ruby On Rails](https://guides.rubyonrails.org/)
 
 ## Getting Started
 
@@ -24,6 +24,11 @@ Create and initialize the database using this command:
 Load the sample data
 
     rake db:seed
+
+Reset sequence ID from table `authors` and `books`
+    rails c
+    ActiveRecord::Base.connection.reset_pk_sequence!('authors')
+    ActiveRecord::Base.connection.reset_pk_sequence!('books')
 
 Start the application server.
 
